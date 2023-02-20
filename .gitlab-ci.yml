@@ -14,7 +14,7 @@ build:
       - target/h1b_extension_api.jar
   only:
     - master
-deploy: 
+deploy:
   stage: deploy
   image: alpine:3.11
   before_script:
