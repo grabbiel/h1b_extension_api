@@ -14,7 +14,7 @@
 	<name>h1b_extension_api</name>
 	<description>Rest API linked to AWS RDS MySQL instance</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
