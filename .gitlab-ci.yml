@@ -3,7 +3,7 @@ stages:
   - deploy
 build:
   stage: build
-  image: maven:3.8.6-openjdk-8
+  image: maven:3.8.3-openjdk-17
   script:
     - echo "Building app..."
     - mvn clean install
