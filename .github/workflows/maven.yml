@@ -28,4 +28,4 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Execute JAR file
-      run: sudo java -jar /home/ubuntu/actions-runner/_work/h1b_extension_api/h1b_extension_api/target/h1b_extension_api.jar
+      run: sudo kill `sudo lsof -t -i:8080` & sudo java -jar /home/ubuntu/actions-runner/_work/h1b_extension_api/h1b_extension_api/target/h1b_extension_api.jar &
