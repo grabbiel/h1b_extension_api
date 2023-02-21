@@ -21,14 +21,10 @@ jobs:
         java-version: '17'
         distribution: 'zulu'
         cache: maven
-  
-    - name: Adding secret
-      run: echo "$DB_HOST" >> src/main/resources/application.properties
-      shell: bash
-      env:
-        DB_HOST: ${{secrets.H1B_RDS_HOST}}
 
     - name: Build with Maven
+      env: 
+        DB_HOST: ${{ secrets.H1B_RDS_HOST }}
       run: mvn -B package --file pom.xml
 
     - name: Execute JAR file
