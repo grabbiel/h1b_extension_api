@@ -24,7 +24,9 @@ jobs:
 
     - name: Build with Maven
       env: 
-        DB_HOST: ${{ secrets.H1B_RDS_HOST }}
+        H1B_RDS_HOST: ${{ secrets.H1B_RDS_HOST }}
+        H1B_RDS_USER: ${{ secrets.H1B_RDS_USER }}
+        H1B_RDS_PASSWORD: ${{ secrets.H1B_RDS_PASSWORD }}
       run: mvn -B package --file pom.xml
 
     - name: Execute JAR file
