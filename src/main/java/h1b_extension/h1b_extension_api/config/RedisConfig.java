@@ -17,19 +17,18 @@ public class RedisConfig  {
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer(){
         return (builder) -> builder
-        .withCacheConfiguration("h1bCache", 
+        .withCacheConfiguration("companyRecordCache", 
+            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)).disableCachingNullValues()
+        ).withCacheConfiguration("stringMatchCache",
             RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10))
-        ).withCacheConfiguration("matchCache", 
-            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5))
         );
     }
-
     @Bean
     JedisConnectionFactory jedisConnectionFactory(){
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName("null");
-        redisStandaloneConfiguration.setPort(0);
-        redisStandaloneConfiguration.setPassword("null");
+        redisStandaloneConfiguration.setHostName("localhost");
+        redisStandaloneConfiguration.setPort(6379);
+        //redisStandaloneConfiguration.setPassword("null");
         return new JedisConnectionFactory(redisStandaloneConfiguration);
 
     }
