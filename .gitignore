@@ -34,3 +34,6 @@ build/
 
 ## gitlab
 .gitlab-ci.yml
+
+## redis
+*.rdb
