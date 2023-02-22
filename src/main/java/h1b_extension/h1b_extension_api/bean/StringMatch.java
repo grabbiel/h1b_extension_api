@@ -1,9 +1,12 @@
 package h1b_extension.h1b_extension_api.bean;
 
-public class StringMatch extends ResponseStatus {
+import java.io.Serializable;
+
+public class StringMatch extends ResponseStatus implements Serializable {
     private String match;
     public StringMatch(){
         super(0);
+        setMatch("");
     }
     public StringMatch(String match){
         super(1);

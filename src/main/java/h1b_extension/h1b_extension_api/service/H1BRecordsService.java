@@ -8,7 +8,6 @@ import h1b_extension.h1b_extension_api.repository.H1BRecordsRepository;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,18 +17,17 @@ public class H1BRecordsService {
     @Autowired
     private H1BRecordsRepository h1brecordsRepository;
 
-    @Cacheable(value = "companyRecordCache")
     public CompanyRecord getCompanyRecord(String name){
         EncodedString instance = new EncodedString(name);
         return h1brecordsRepository.getCompanyRecord(instance.getDecodedString());
     }
 
-    @Cacheable(value = "stringMatchCache")
+    
     public StringMatch lookCompanyMatch(String name){
         StringManipulation instance = new StringManipulation(name);
         String literal = iterateCall(instance, 0);
         if(literal==""){return new StringMatch();}
-        return new StringMatch(literal);
+        else{return new StringMatch(literal);}
     }
 
     private String iterateCall(StringManipulation instance, int cutoff){

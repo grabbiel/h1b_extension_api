@@ -1,6 +1,8 @@
 package h1b_extension.h1b_extension_api.bean;
 
-public class CompanyRecord {
+import java.io.Serializable;
+
+public class CompanyRecord implements Serializable {
     private int requests;
     private int ranking;
     private int approvals;
