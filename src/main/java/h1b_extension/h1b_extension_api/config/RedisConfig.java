@@ -17,10 +17,12 @@ public class RedisConfig  {
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer(){
         return (builder) -> builder
-        .withCacheConfiguration("companyRecordCache", 
+        .withCacheConfiguration("match_status", 
+            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)).disableCachingNullValues()
+        ).withCacheConfiguration("literal_match",
             RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)).disableCachingNullValues()
-        ).withCacheConfiguration("stringMatchCache",
-            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10))
+        ).withCacheConfiguration("company_record",
+            RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)).disableCachingNullValues()
         );
     }
     @Bean
