@@ -1,15 +1,11 @@
 package h1b_extension.h1b_extension_api.model;
 
-import java.util.Set;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 @Table(name = "h1b_records")
@@ -17,9 +13,6 @@ public class H1BRecord{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @OneToMany(mappedBy = "uscisid", cascade = CascadeType.REMOVE)
-    private Set<MatchReview> match_review;
 
     @Column
     private String company;
