@@ -50,16 +50,4 @@ public class H1BRecordsController {
             return new ResponseEntity<JobPosting>(HttpStatus.NOT_IMPLEMENTED);
         }
     }
-
-    @PutMapping(value = "/new-year", consumes = "application/json")
-    public ResponseEntity<ResponseStatus> addNewYearRecord(@RequestBody H1BRecord record){
-        try{
-            h1bRecordsService.addNewYearRecord(record);
-            ResponseStatus status = new ResponseStatus(1);
-            return new ResponseEntity<ResponseStatus>(status, HttpStatus.OK);
-        }catch(PersistenceException e){
-            return new ResponseEntity<ResponseStatus>(HttpStatus.NOT_IMPLEMENTED);
-        }
-    }
-
 }

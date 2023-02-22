@@ -63,8 +63,6 @@ public class H1BRecordsService {
         StringManipulation instance = new StringManipulation(name);
         String literal = iterateCall(instance, 0);
         if(literal==""){return new StringMatch();}
-        /* maybe future schedule service: pass encoded review_match to task queue */
-        /* findInsertMatchRecords(literal, instance.getDecodedString()); */
         return new StringMatch(literal);
     }
     
@@ -86,14 +84,7 @@ public class H1BRecordsService {
             return iterateCall(instance, cutoff+1);
         }   
     }
-
-    public void addNewYearRecord(H1BRecord record){
-        h1brecordsRepository.addNewYearRecord(record.getCompany(), record.getRequests(), record.getApprovals(), record.getYear(), record.getCountry());
-        /* add caching */
-    }
-
     public JobPosting newPosting(JobPosting posting){
         return posting;
     }
-
 }
