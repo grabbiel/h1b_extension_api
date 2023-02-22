@@ -6,7 +6,7 @@ public class StringMatch extends ResponseStatus implements Serializable {
     private String match;
     public StringMatch(){
         super(0);
-        setMatch("");
+        setMatch("404");
     }
     public StringMatch(String match){
         super(1);

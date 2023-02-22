@@ -17,30 +17,21 @@ public class H1BRecordsService {
     @Autowired
     private H1BRecordsRepository h1brecordsRepository;
 
+    @Autowired
+    private CacheMethods cacheMethods;
+
+    //@Cacheable(value = "company_match", key = "#name")
+    public StringMatch lookCompanyMatch(String name){
+        StringManipulation instance = new StringManipulation(name);
+        String literal = cacheMethods.iterateCall(instance, 0);
+        if(literal==""){return new StringMatch();}
+        else{return new StringMatch(literal);}
+    }
+
     public CompanyRecord getCompanyRecord(String name){
         EncodedString instance = new EncodedString(name);
         return h1brecordsRepository.getCompanyRecord(instance.getDecodedString());
     }
 
-    
-    public StringMatch lookCompanyMatch(String name){
-        StringManipulation instance = new StringManipulation(name);
-        String literal = iterateCall(instance, 0);
-        if(literal==""){return new StringMatch();}
-        else{return new StringMatch(literal);}
-    }
 
-    private String iterateCall(StringManipulation instance, int cutoff){
-        if(instance.size() == cutoff){return "";}
-        String literal = instance.getSplit(cutoff);
-        if(h1brecordsRepository.existsH1BRecordByCompany(literal) || h1brecordsRepository.existsH1BRecordByCompanyStartingWith(literal+" ")){
-            return literal;
-        }else{
-            return iterateCall(instance, cutoff+1);
-        }   
-    }
-
-    public int getCompanyId(String name){
-        return h1brecordsRepository.getCompanyCode(name);
-    }
 }
