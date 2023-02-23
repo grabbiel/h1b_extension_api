@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 public class StringMatch extends ResponseStatus implements Serializable {
     private String match;
-    public StringMatch(){
-        super(0);
-        setMatch("404");
-    }
     public StringMatch(String match){
-        super(1);
+        super();
         setMatch(match);
+        if(this.match==""){
+            this.setStatus(0);
+        }else{
+            this.setStatus(1);
+        }
     }
     public String getMatch(){
         return this.match;

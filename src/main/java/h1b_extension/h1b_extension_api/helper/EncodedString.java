@@ -4,7 +4,7 @@ import java.util.Base64;
 
 public class EncodedString {
     public String encoded_string;
-    protected String decoded_string;
+    public String decoded_string;
     public EncodedString(String encoded_string){
         this.encoded_string = encoded_string;
         this.decoded_string = decode(this.encoded_string);
