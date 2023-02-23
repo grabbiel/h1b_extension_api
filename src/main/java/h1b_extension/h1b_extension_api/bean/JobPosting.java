@@ -1,1 +1,0 @@
-/* migrated bean class to separate microservice */
