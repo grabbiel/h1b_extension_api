@@ -1,1 +1,0 @@
-/* this service + controller is being moved to a separate microservice */
