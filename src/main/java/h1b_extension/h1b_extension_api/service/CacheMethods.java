@@ -11,16 +11,27 @@ import h1b_extension.h1b_extension_api.repository.H1BRecordsRepository;
 public class CacheMethods {
 
     @Autowired
-    private H1BRecordsRepository h1brecordsRepository;
+    H1BRecordsRepository h1brecordsRepository;
 
-    @Cacheable(value="company_match", key="#instance")
-    public String iterateCall(StringManipulation instance, int cutoff){
+    @Cacheable(value="literal_match", key="#instance.encoded_string")
+    public String iterateMatch(StringManipulation instance, int cutoff){
         if(instance.size() == cutoff){return "";}
         String literal = instance.getSplit(cutoff);
         if(h1brecordsRepository.existsH1BRecordByCompany(literal) || h1brecordsRepository.existsH1BRecordByCompanyStartingWith(literal+" ")){
             return literal;
         }else{
-            return iterateCall(instance, cutoff+1);
+            return iterateMatch(instance, cutoff+1);
         }   
+    }
+
+    @Cacheable(value="match_status", key="{#instance.encoded_string, #instance.decoded_string}")
+    public int iterateStatus(StringManipulation instance, int cutoff){
+        if(instance.size() == cutoff){return 0;}
+        String literal = instance.getSplit(cutoff);
+        if(h1brecordsRepository.existsH1BRecordByCompany(literal) || h1brecordsRepository.existsH1BRecordByCompanyStartingWith(literal+" ")){
+            return 1;
+        }else{
+            return iterateStatus(instance, cutoff+1);
+        }
     }
 }
