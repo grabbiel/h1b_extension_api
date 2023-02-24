@@ -25,8 +25,10 @@ import h1b_extension.h1b_extension_api.bean.ResponseStatus;
 public class H1BRecordsController {
     @Autowired
     H1BRecordsService h1bRecordsService;
-
-    @CrossOrigin(origins = {"chrome-extension://dfpimaaljehjdhfnaeleacollelmejnj/"}, maxAge = 2000)
+    
+    private static final String chromeid = "chrome-extension://"+"aiaefkhdhchhofckhbhpbcpgkkmfbjhj";
+    
+    @CrossOrigin(origins = {chromeid}, maxAge = 2000)
     @GetMapping("/has_match")
     public ResponseEntity<ResponseStatus> companyHasMatch(
         @RequestParam(value="company") String name
@@ -35,8 +37,7 @@ public class H1BRecordsController {
         return new ResponseEntity<ResponseStatus>(status, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = {"chrome-extension://dfpimaaljehjdhfnaeleacollelmejnj/"}, 
-    maxAge = 2000)
+    @CrossOrigin(origins = {chromeid}, maxAge = 2000)
     @GetMapping("/literal_match")
     public ResponseEntity<StringMatch> lookCompanyMatch(
         @RequestParam(value="company") String name
@@ -46,7 +47,7 @@ public class H1BRecordsController {
     }
 
 
-    @CrossOrigin(origins = {"chrome-extension://dfpimaaljehjdhfnaeleacollelmejnj/"}, maxAge = 1800)
+    @CrossOrigin(origins = {chromeid}, maxAge = 1800)
     @GetMapping(value = "/record")
     public ResponseEntity<CompanyRecord> getCompanyRecord(@RequestParam(value="str_match") String name){
         CompanyRecord info = h1bRecordsService.getCompanyRecord(name);    
