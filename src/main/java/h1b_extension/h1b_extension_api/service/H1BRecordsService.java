@@ -14,7 +14,7 @@ import h1b_extension.h1b_extension_api.helper.EncodedString;
 import h1b_extension.h1b_extension_api.helper.StringManipulation;
 
 /* repositories */
-import h1b_extension.h1b_extension_api.repository.H1BRecordsRepository;
+import h1b_extension.h1b_extension_api.repository.H1BRecordRepository;
 
 /* annotations */
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class H1BRecordsService {
 
     @Autowired
-    private H1BRecordsRepository h1brecordsRepository;
+    private H1BRecordRepository h1brecordRepository;
 
     @Autowired
     private CacheMethods cacheMethods;
@@ -47,7 +47,7 @@ public class H1BRecordsService {
     public StringMatch lookCompanyMatch(String name){
         StringManipulation instance = new StringManipulation(name);
         String literal = cacheMethods.iterateMatch(instance, 0);
-        submitMatchReview(instance.encoded_string, literal);
+        submitMatchReview(instance.decoded_string, literal);
         return new StringMatch(literal);
     }
 
@@ -55,7 +55,7 @@ public class H1BRecordsService {
     public CompanyRecord getCompanyRecord(String name){
         EncodedString instance = new EncodedString(name);
         String decoded = instance.getDecodedString();
-        return h1brecordsRepository.getCompanyRecord(decoded);
+        return h1brecordRepository.getCompanyRecord(decoded);
     }
 
     @Async
