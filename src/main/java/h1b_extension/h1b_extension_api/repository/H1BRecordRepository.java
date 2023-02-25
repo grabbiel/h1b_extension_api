@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import h1b_extension.h1b_extension_api.bean.CompanyRecord;
 import h1b_extension.h1b_extension_api.model.H1BRecord;
-public interface H1BRecordsRepository extends JpaRepository<H1BRecord, Integer>{
+public interface H1BRecordRepository extends JpaRepository<H1BRecord, Integer>{
     
     boolean existsH1BRecordByCompany(String name);
     
