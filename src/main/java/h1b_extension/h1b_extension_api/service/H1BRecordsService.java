@@ -2,6 +2,7 @@ package h1b_extension.h1b_extension_api.service;
 
 /* beans */
 import h1b_extension.h1b_extension_api.bean.CompanyRecord;
+import h1b_extension.h1b_extension_api.bean.JobDescription;
 import h1b_extension.h1b_extension_api.bean.MatchReview;
 import h1b_extension.h1b_extension_api.bean.ResponseStatus;
 import h1b_extension.h1b_extension_api.bean.StringMatch;
@@ -51,7 +52,7 @@ public class H1BRecordsService {
         return new StringMatch(literal);
     }
 
-    @Cacheable(value="company_record", key="#name")
+    @Cacheable(value="company_record", key="{'literal',#name}")
     public CompanyRecord getCompanyRecord(String name){
         EncodedString instance = new EncodedString(name);
         String decoded = instance.getDecodedString();
@@ -64,6 +65,15 @@ public class H1BRecordsService {
         MatchReview review = new MatchReview(company, literal);
         log.info("Company name match review sent: {}", review);
         matchReviewProducer.send(review);
+    }
+
+    @Async
+    public void submitJobDescription(JobDescription description){
+        log.info("----------------------");
+        log.info("Processing JD submission: ");
+        log.info("Encoded Name: {}",description.getName());
+        log.info("Encoded Description: {}",description.getDescription());
+        log.info("Description Status: {}",description.getDstatus());
     }
 
 }

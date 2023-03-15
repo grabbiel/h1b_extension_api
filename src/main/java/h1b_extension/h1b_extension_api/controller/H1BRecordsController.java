@@ -1,6 +1,7 @@
 package h1b_extension.h1b_extension_api.controller;
 
 import h1b_extension.h1b_extension_api.bean.CompanyRecord;
+import h1b_extension.h1b_extension_api.bean.JobDescription;
 import h1b_extension.h1b_extension_api.bean.StringMatch;
 import h1b_extension.h1b_extension_api.service.H1BRecordsService;
 
@@ -12,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import h1b_extension.h1b_extension_api.bean.ResponseStatus;
-
-
-
 
 
 @RestController
@@ -52,5 +52,15 @@ public class H1BRecordsController {
     public ResponseEntity<CompanyRecord> getCompanyRecord(@RequestParam(value="str_match") String name){
         CompanyRecord info = h1bRecordsService.getCompanyRecord(name);    
         return new ResponseEntity<CompanyRecord>(info, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = {chromeid}, maxAge = 1800)
+    @PostMapping(value = "/text-analysis", consumes = "application/json; charset=UTF-8")
+    public ResponseEntity<ResponseStatus> submitJobDescription(
+        @RequestBody JobDescription description
+    ){
+        h1bRecordsService.submitJobDescription(description);
+        ResponseStatus status = new ResponseStatus(1);
+        return new ResponseEntity<ResponseStatus>(status, HttpStatus.OK);
     }
 }

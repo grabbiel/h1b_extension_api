@@ -24,7 +24,7 @@ public class CacheMethods {
         }   
     }
 
-    @Cacheable(value="match_status", key="{#instance.encoded_string, #instance.decoded_string}")
+    @Cacheable(value="match_status", key="#instance.decoded_string")
     public int iterateStatus(StringManipulation instance, int cutoff){
         if(instance.size() == cutoff){return 0;}
         String literal = instance.getSplit(cutoff);
