@@ -1,7 +1,7 @@
 # H1B Sponsor Checker (API)
 RestFUL API serving as both requests endpoints and a Kafka topics producer.
 
-The service contains an ORM model linked to the main table ("h1b_records") within the database used by the browser extension "H1B Sponsor Checker".
+The service contains an ORM model linked to the main table (**"h1b_records"**) within the database used by the browser extension ["H1B Sponsor Checker"](https://github.com/pakitow/h1b-sponsor-check).
 
 ![H1B Records Table](https://raw.githubusercontent.com/pakitow/pakitow/main/images-repository/table-records.png "Table Records Snippet")
 
