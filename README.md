@@ -25,4 +25,4 @@ The most frequent query requests are cached, i.e.,
 1. getting a string literal match for a website company name; and, 
 2. getting the sponsoring status of a company. 
 
-The caching mechanism is dependent upon a connection to a Redis instance set up in an EC2 VM.
+The caching mechanism is dependent upon a connection to a Redis instance set up in an EC2 instance.
