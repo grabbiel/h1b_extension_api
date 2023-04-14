@@ -30,7 +30,7 @@ jobs:
           java-version: 17
   
       - name: Print REDIS_URL
-        run: echo ${{ secrets.REDIS_URL }}
+        run: echo "REDIS_URL value -> ${REDIS_URL}"
 
       - name: maven, build clean
         run: |
