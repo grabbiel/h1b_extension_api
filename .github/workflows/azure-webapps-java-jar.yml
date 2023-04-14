@@ -2,7 +2,7 @@ name: VisaSpotter Deployment to Azure Spring App
 
 env:
   ASC_PACKAGE_PATH: ${{ github.workspace }}
-  AZURE_SUBSCRIPTION: Azure for Students
+  AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
 on:
   push:
