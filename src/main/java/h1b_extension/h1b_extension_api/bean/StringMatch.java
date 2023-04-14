@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class StringMatch extends ResponseStatus implements Serializable {
     private String match;
+    
     public StringMatch(String match){
         super();
         setMatch(match);

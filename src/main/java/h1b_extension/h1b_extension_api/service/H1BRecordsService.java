@@ -8,7 +8,7 @@ import h1b_extension.h1b_extension_api.bean.ResponseStatus;
 import h1b_extension.h1b_extension_api.bean.StringMatch;
 
 /* components */
-import h1b_extension.h1b_extension_api.components.MatchReviewProducer;
+//import h1b_extension.h1b_extension_api.components.MatchReviewProducer;
 
 /* helpers */
 import h1b_extension.h1b_extension_api.helper.EncodedString;
@@ -36,8 +36,8 @@ public class H1BRecordsService {
     @Autowired
     private CacheMethods cacheMethods;
 
-    @Autowired
-    private MatchReviewProducer matchReviewProducer;
+    //@Autowired
+    //private MatchReviewProducer matchReviewProducer;
 
     public ResponseStatus companyHasMatch(String name){
         StringManipulation instance = new StringManipulation(name);
@@ -64,7 +64,6 @@ public class H1BRecordsService {
         if(literal == ""){return;}
         MatchReview review = new MatchReview(company, literal);
         log.info("Company name match review sent: {}", review);
-        matchReviewProducer.send(review);
     }
 
     @Async

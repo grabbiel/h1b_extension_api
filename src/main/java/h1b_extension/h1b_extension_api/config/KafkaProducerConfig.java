@@ -1,4 +1,4 @@
-package h1b_extension.h1b_extension_api.config;
+/*  package h1b_extension.h1b_extension_api.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,14 +10,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-/* serializer */
+// serializer
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 
 import h1b_extension.h1b_extension_api.bean.MatchReview;
+ */
 
-
+/* 
 @Configuration
 public class KafkaProducerConfig {
 
@@ -29,7 +30,7 @@ public class KafkaProducerConfig {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
         JsonSerializer<MatchReview> jsonSerializer = new JsonSerializer<MatchReview>();
-        jsonSerializer.setAddTypeInfo(false); /* disable headers */
+        jsonSerializer.setAddTypeInfo(false); // disable headers
         return new DefaultKafkaProducerFactory<>(configProps, new StringSerializer(), jsonSerializer);
     }
 
@@ -38,3 +39,4 @@ public class KafkaProducerConfig {
         return new KafkaTemplate<>(matchReviewProducerFactory());
     }
 }
+ */

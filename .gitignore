@@ -37,3 +37,6 @@ build/
 
 ## redis
 *.rdb
+
+# others
+notes.txt
