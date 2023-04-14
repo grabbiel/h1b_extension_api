@@ -43,7 +43,7 @@ jobs:
         with:
           azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
           action: Deploy
-          service-name: visaspotter-h1brecords-api-prov
+          service-name: visaspotter-h1brecords-api
           app-name: visaspotter-h1brecords-api
           use-staging-deployment: false
           package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
