@@ -1,0 +1,50 @@
+name: VisaSpotter Deployment to Azure Spring App
+
+env:
+  ASC_PACKAGE_PATH: ${{ github.workspace }}
+  AZURE_SUBSCRIPTION: AzureCloud
+
+on:
+  push:
+    branches: [ "xd" ]
+  workflow_dispatch:
+
+jobs:
+  deploy-to-production:
+    runs-on: ubuntu-latest
+    name: deploy to production with artifact
+    env:
+      H1B_RDS_HOST: ${{ secrets.H1B_RDS_HOST }}
+      H1B_RDS_USER: ${{ secrets.H1B_RDS_USER }}
+      H1B_RDS_PASSWORD: ${{ secrets.H1B_RDS_PASSWORD }}
+      REDIS_USER: ${{ secrets.REDIS_USER }}
+      REDIS_URL: ${{ secrets.REDIS_URL }}
+
+    steps:
+      - name: Checkout GitHub Action
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: maven, build clean
+        run: |
+          mvn clean package
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: deploy to production with artifact
+        uses: azure/spring-cloud-deploy@v1
+        with:
+          azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
+          action: Deploy
+          service-name: visaspotter-h1brecords-api-prov
+          app-name: visaspotter-h1brecords-api
+          use-staging-deployment: false
+          package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
+          
