@@ -50,4 +50,9 @@ jobs:
           app-name: visaspotter-h1brecords-api
           use-staging-deployment: false
           package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
-          
+        env:
+          H1B_RDS_HOST: ${{ secrets.H1B_RDS_HOST }}
+          H1B_RDS_USER: ${{ secrets.H1B_RDS_USER }}
+          H1B_RDS_PASSWORD: ${{ secrets.H1B_RDS_PASSWORD }}
+          REDIS_USER: ${{ secrets.REDIS_USER }}
+          REDIS_URL: ${{ secrets.REDIS_URL }}
