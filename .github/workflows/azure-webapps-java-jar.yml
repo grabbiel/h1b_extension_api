@@ -1,4 +1,4 @@
-name: VisaSpotter Deployment to Azure Spring App
+name: VisaSpotter Deployment to Azure Spring App (v1.1)
 
 env:
   ASC_PACKAGE_PATH: ${{ github.workspace }}
