@@ -12,6 +12,7 @@ env:
   AWS_SNS_ENDPOINT: ${{ secrets.AWS_SNS_ENDPOINT }}
   AWS_SQS_ACCESS_KEY: ${{ secrets.AWS_SQS_ACCESS_KEY }}
   AWS_SQS_SECRET_KEY: ${{ secrets.AWS_SQS_SECRET_KEY }}
+  AWS_TOPIC_NAME: ${{ secrets.AWS_TOPIC_NAME }}
 
 on:
   push:
