@@ -8,6 +8,10 @@ env:
   H1B_RDS_PASSWORD: ${{ secrets.H1B_RDS_PASSWORD }}
   REDIS_USER: ${{ secrets.REDIS_USER }}
   REDIS_URL: ${{ secrets.REDIS_URL }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_SNS_ENDPOINT: ${{ secrets.AWS_SNS_ENDPOINT }}
+  AWS_SQS_ACCESS_KEY: ${{ secrets.AWS_SQS_ACCESS_KEY }}
+  AWS_SQS_SECRET_KEY: ${{ secrets.AWS_SQS_SECRET_KEY }}
 
 on:
   push:

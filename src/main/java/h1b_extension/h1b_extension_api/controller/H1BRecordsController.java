@@ -1,7 +1,6 @@
 package h1b_extension.h1b_extension_api.controller;
 
 import h1b_extension.h1b_extension_api.bean.CompanyRecord;
-import h1b_extension.h1b_extension_api.bean.JobDescription;
 import h1b_extension.h1b_extension_api.bean.StringMatch;
 import h1b_extension.h1b_extension_api.service.H1BRecordsService;
 
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import h1b_extension.h1b_extension_api.bean.ResponseStatus;

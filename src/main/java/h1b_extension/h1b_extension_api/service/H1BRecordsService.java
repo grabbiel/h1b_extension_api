@@ -2,7 +2,6 @@ package h1b_extension.h1b_extension_api.service;
 
 /* beans */
 import h1b_extension.h1b_extension_api.bean.CompanyRecord;
-import h1b_extension.h1b_extension_api.bean.JobDescription;
 import h1b_extension.h1b_extension_api.bean.MatchReview;
 import h1b_extension.h1b_extension_api.bean.ResponseStatus;
 import h1b_extension.h1b_extension_api.bean.StringMatch;
@@ -36,8 +35,8 @@ public class H1BRecordsService {
     @Autowired
     private CacheMethods cacheMethods;
 
-    //@Autowired
-    //private MatchReviewProducer matchReviewProducer;
+    @Autowired
+    private MatchReviewService matchReviewService;
 
     public ResponseStatus companyHasMatch(String name){
         StringManipulation instance = new StringManipulation(name);
@@ -60,19 +59,11 @@ public class H1BRecordsService {
     }
 
     @Async
-    private void submitMatchReview(String company, String literal){/* encoded name, string literal match */
+    private void submitMatchReview(String company, String literal){
+        /* encoded name, string literal match */
         if(literal == ""){return;}
         MatchReview review = new MatchReview(company, literal);
         log.info("Company name match review sent: {}", review);
+        matchReviewService.processRequest(review);
     }
-
-    @Async
-    public void submitJobDescription(JobDescription description){
-        log.info("----------------------");
-        log.info("Processing JD submission: ");
-        log.info("Encoded Name: {}",description.getName());
-        log.info("Encoded Description: {}",description.getDescription());
-        log.info("Description Status: {}",description.getDstatus());
-    }
-
 }
