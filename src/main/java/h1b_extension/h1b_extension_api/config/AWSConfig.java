@@ -29,7 +29,7 @@ public class AWSConfig {
     @Value("${AWS_SNS_ENDPOINT}")
     private String awsSnsEndpoint;
 
-    @Value("${AWS_TOPIC_NAME}")
+    @Value("${AWS_TOPIC_NAME_MATCHREVIEW}")
     private String awsTopicName;
 
     @Bean
