@@ -1,15 +1,17 @@
 package h1b_extension.h1b_extension_api.model;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "h1b_records")
-public class H1BRecord{
+@Table(name = "test_table")
+public class TestTable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,33 +29,33 @@ public class H1BRecord{
     private int approvals;
 
     @Column
-    private int ranking;
-
-    @Column
     private int fiscal_year;
 
     @Column
     private int country;
 
-    @Column
-    private int sponsor_openings;
 
-    @Column
-    private int openings;
+    public TestTable(){}
 
-    public H1BRecord(){}
-    public H1BRecord(int id, String company, int code, int requests, int approvals, int ranking, int fiscal_year, int country, int sponsor_openings, int openings){
+    public TestTable(int id, String company, int code, int requests, int approvals, int fiscal_year, int country){
         setId(id);
         setCompany(company);
         setCode(code);
         setRequests(requests);
         setApprovals(approvals);
-        setRanking(ranking);
         setYear(fiscal_year);
         setCountry(country);
-        setSponsorOpenings(sponsor_openings);
-        setOpenings(openings);
     }
+
+    public TestTable(String company, int code, int requests, int approvals, int fiscal_year, int country){
+        setCompany(company);
+        setCode(code);
+        setRequests(requests);
+        setApprovals(approvals);
+        setYear(fiscal_year);
+        setCountry(country);
+    }
+
     public int getId(){
         return id;
     }
@@ -84,12 +86,6 @@ public class H1BRecord{
     public void setApprovals(int approvals){
         this.approvals = approvals;
     }
-    public int getRanking(){
-        return ranking;
-    }
-    public void setRanking(int ranking){
-        this.ranking = ranking;
-    }
     public int getYear(){
         return fiscal_year;
     }
@@ -102,16 +98,5 @@ public class H1BRecord{
     public void setCountry(int country){
         this.country = country;
     }
-    public int getSponsorOpenings(){
-        return sponsor_openings;
-    }
-    public void setSponsorOpenings(int sponsor_openings){
-        this.sponsor_openings =  sponsor_openings;
-    }
-    public int getOpenings(){
-        return openings;
-    }
-    public void setOpenings(int openings){
-        this.openings =  openings;
-    }
+
 }

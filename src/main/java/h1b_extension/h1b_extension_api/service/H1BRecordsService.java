@@ -1,26 +1,22 @@
 package h1b_extension.h1b_extension_api.service;
 
 /* beans */
-import h1b_extension.h1b_extension_api.bean.CompanyRecord;
 import h1b_extension.h1b_extension_api.bean.MatchReview;
-import h1b_extension.h1b_extension_api.bean.ResponseStatus;
-import h1b_extension.h1b_extension_api.bean.StringMatch;
-
-/* components */
-//import h1b_extension.h1b_extension_api.components.MatchReviewProducer;
-
-/* helpers */
-import h1b_extension.h1b_extension_api.helper.EncodedString;
-import h1b_extension.h1b_extension_api.helper.StringManipulation;
+import h1b_extension.h1b_extension_api.bean.NameMatches;
+import h1b_extension.h1b_extension_api.bean.OutMatchReview;
 
 /* repositories */
 import h1b_extension.h1b_extension_api.repository.H1BRecordRepository;
 
+import java.util.List;
+
 /* annotations */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.messaging.MessagingException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,37 +29,32 @@ public class H1BRecordsService {
     private H1BRecordRepository h1brecordRepository;
 
     @Autowired
-    private CacheMethods cacheMethods;
+    private PublishMessage matchReviewService;
 
-    @Autowired
-    private MatchReviewService matchReviewService;
-
-    public ResponseStatus companyHasMatch(String name){
-        StringManipulation instance = new StringManipulation(name);
-        int status = cacheMethods.iterateStatus(instance, 0);
-        return new ResponseStatus(status);
+    @Cacheable(value="match_review_process", key="#review.name", unless = "#result != 1")
+    public int processMatchReviews(MatchReview review){
+        try{
+            List<NameMatches> nameMatches = h1brecordRepository.getNameMatches(review.getLiteral());
+            submitMatchReviews(review, nameMatches);
+            return 1;
+        }catch(MessagingException e){
+            return 0;
+        }
     }
-
-    public StringMatch lookCompanyMatch(String name){
-        StringManipulation instance = new StringManipulation(name);
-        String literal = cacheMethods.iterateMatch(instance, 0);
-        submitMatchReview(instance.decoded_string, literal);
-        return new StringMatch(literal);
-    }
-
-    @Cacheable(value="company_record", key="{'literal',#name}")
-    public CompanyRecord getCompanyRecord(String name){
-        EncodedString instance = new EncodedString(name);
-        String decoded = instance.getDecodedString();
-        return h1brecordRepository.getCompanyRecord(decoded);
+    
+    @Async
+    public void submitMatchReviews(MatchReview review, List<NameMatches> nameMatches) throws MessagingException{
+        String size = Integer.toString(nameMatches.size());
+        log.info("Number of matches found: "+size);
+        for(int i = 0; i < nameMatches.size(); i++){
+            NameMatches nameMatch = nameMatches.get(i);
+            submitMatchReview(review, nameMatch.getName(), nameMatch.getCode());
+        }
     }
 
     @Async
-    private void submitMatchReview(String company, String literal){
-        /* encoded name, string literal match */
-        if(literal == ""){return;}
-        MatchReview review = new MatchReview(company, literal);
-        log.info("Company name match review sent: {}", review);
-        matchReviewService.processRequest(review);
+    private void submitMatchReview(MatchReview review, String match_name, int code) throws MessagingException{
+        OutMatchReview outMatchReview = new OutMatchReview(review, match_name, code);
+        matchReviewService.publishMatchReview(outMatchReview);
     }
 }
